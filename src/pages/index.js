@@ -26,9 +26,14 @@ export default function Home() {
         className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
       >
         <main className={styles.main}>
+          <h1
+          style={{"font-size": "200px"}}>
+            Table Top Tracker
+          </h1>
+          
           <Image
             className={styles.logo}
-            src="/next.svg"
+            src="/wingspan.png"
             alt="Next.js logo"
             width={180}
             height={38}
@@ -55,7 +60,7 @@ export default function Home() {
                 width={20}
                 height={20}
               />
-              Deploy now
+              Butt Johnson
             </a>
             <a
               href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
