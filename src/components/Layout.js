@@ -9,7 +9,7 @@ const Layout = ({ children }) => {
       <AppBar position="sticky">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            My Website
+            Table Top Tracker
           </Typography>
           <Button color="inherit">
             <Link href="/" passHref>

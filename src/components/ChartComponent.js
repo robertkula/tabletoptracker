@@ -43,7 +43,8 @@ const CSVChart = () => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="value" stroke="#8884d8" /> {/* Replace 'value' with your data column name */}
+            <Line type="monotone" dataKey="Bobby" stroke="#8884d8" />
+            <Line type="monotone" dataKey="Tyler" stroke="#4884d8" /> {/* Replace 'value' with your data column name */}
           </LineChart>
         </ResponsiveContainer>
       )}
