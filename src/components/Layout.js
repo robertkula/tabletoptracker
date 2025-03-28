@@ -22,13 +22,13 @@ const Layout = ({ children }) => {
             </Link>
           </Button>
           <Button color="inherit">
-            <Link href="/services" passHref>
-              <Typography variant="button">Services</Typography>
+            <Link href="/chart2" passHref>
+              <Typography variant="button">Chart2</Typography>
             </Link>
           </Button>
           <Button color="inherit">
-            <Link href="/contact" passHref>
-              <Typography variant="button">Contact</Typography>
+            <Link href="/append" passHref>
+              <Typography variant="button">Append</Typography>
             </Link>
           </Button>
         </Toolbar>
