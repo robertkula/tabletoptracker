@@ -7,6 +7,8 @@ const App = () => {
     <div>
       <h1>CSV Chart Upload</h1>
       <CSVChart />
+      <h2>CSV Chart Upload</h2>
+      <CSVChart />
     </div>
   );
 };

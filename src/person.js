@@ -1,45 +1,12 @@
-import * as calculateELO from './calculation/calculateELO.js'
+Array.prototype.maxi = function() {
+  return Math.max.apply(null, this);
+};
 
+Array.prototype.min = function() {
+  return Math.min.apply(null, this);
+};
 
-  
-  
+let p = [35,2,65,7,8,9,12,121,33,99];
 
-
-
-const data = [3,6,4,6,2]
-
-
-
-const scores = [...data];
-const scoresOrdered = [...data];
-scoresOrdered.sort().reverse();
-const length = data.length;
-const outcomes = calculateELO.calculateOutcomes(scoresOrdered);
-const realOutcomes = calculateELO.calculateRealOutcomes(scoresOrdered,outcomes);
-const realOutcomesOrdered = calculateELO.orderRealOutcomes(scores,scoresOrdered,realOutcomes);
-const pregameELO = [1000,1100,900,950,1150];
-
-const postgameELO = calculateELO.calculateELO(pregameELO,realOutcomesOrdered);
-
-console.log(pregameELO);
-console.log(realOutcomes);
-console.log(postgameELO);
-
-
-
-
-
-
-
-
-
-
-
-
-  // Create an instance of the class
-
-
-
-
-
-  
+console.log(`Max value is: ${p.maxi()}` +
+  `\nMin value is: ${p.min()}`);

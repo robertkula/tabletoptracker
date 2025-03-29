@@ -3,6 +3,8 @@ import { TextField, Button, Box, Typography, FormHelperText } from '@mui/materia
 import { saveAs } from 'file-saver';
 import Papa from 'papaparse';
 import * as calculateELO from "../calculation/calculateELO.js"
+import * as processCSV from "../calculation/processCSV.js"
+import LineChartComponent from '../components/ChartComponent';
 
 const CsvAppender = () => {
   const [inputValues, setInputValues] = useState([]);
@@ -11,21 +13,28 @@ const CsvAppender = () => {
   const [errors, setErrors] = useState([]);
   const [columnSums, setColumnSums] = useState([]); // Store the column sums
 
+  const [ELO, setELOValues] = useState([]);
+  const [scores, setScores] = useState([]);
+
+
   // Handle input changes for dynamic fields
   const handleInputChange = (index, value) => {
     const updatedValues = [...inputValues];
     updatedValues[index] = value;
     setInputValues(updatedValues);
+
+
   };
 
   // Handle file input change
   const handleFileUpload = (event) => {
+    
     changeBackground("blue");
     const file = event.target.files[0];
     if (file) {
       Papa.parse(file, {
         complete: (result) => {
-          setCsvData(result.data);
+          setCsvData(result.data); 
           setHeaders(result.data[0]); // First row is headers
           setInputValues(Array(result.data[0].length).fill('')); // Initialize input values array
           setErrors(Array(result.data[0].length).fill('')); // Initialize error array
@@ -33,7 +42,18 @@ const CsvAppender = () => {
         },
       });
     }
-  };
+    const newData = [
+      { name: 'Jan', value1: 4000, value2: 2400, value3: 2400 },
+      { name: 'Feb', value1: 3000, value2: 1398, value3: 2210 },
+      { name: 'Mar', value1: 2000, value2: 9800, value3: 2290 },
+      { name: 'Apr', value1: 2780, value2: 3908, value3: 2000 },
+      { name: 'May', value1: 1890, value2: 4800, value3: 2181 },
+      { name: 'Jun', value1: 2390, value2: 3800, value3: 2500 },
+    ];
+    setELOValues(newData);
+  }
+
+  
   function changeBackground(color) {
     document.body.style.background = color;
  }
@@ -153,7 +173,14 @@ const CsvAppender = () => {
           </Box>
         </>
       )}
-
+      {ELO.length>0 && (
+    <div>
+      
+      <h1>ELO</h1>
+      <LineChartComponent data={ELO} />
+      
+    </div>
+    )}
       <Box sx={{ marginTop: 3 }}>
         <Typography variant="h6">CSV Preview:</Typography>
         <pre>{csvData.map(row => row.join(', ')).join('\n')}</pre>
@@ -171,6 +198,7 @@ const CsvAppender = () => {
             ))}
           </ul>
         </Box>
+        
       )}
     </Box>
   );
