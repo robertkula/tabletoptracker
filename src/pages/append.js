@@ -7,6 +7,7 @@ import * as processCSV from "../calculation/processCSV.js"
 import LineChartComponent from '../components/ChartComponent';
 
 const CsvAppender = () => {
+
   const [inputValues, setInputValues] = useState([]);
   const [csvData, setCsvData] = useState([]);
   const [headers, setHeaders] = useState([]);
@@ -16,6 +17,14 @@ const CsvAppender = () => {
   const [ELO, setELOValues] = useState([]);
   const [scores, setScores] = useState([]);
 
+
+
+
+
+  const updateGraphs = (inputData) => {
+    setELOValues(processCSV.readELO(inputData));
+
+  }
 
   // Handle input changes for dynamic fields
   const handleInputChange = (index, value) => {
@@ -28,13 +37,13 @@ const CsvAppender = () => {
 
   // Handle file input change
   const handleFileUpload = (event) => {
-    
     changeBackground("blue");
     const file = event.target.files[0];
     if (file) {
       Papa.parse(file, {
         complete: (result) => {
-          setCsvData(result.data); 
+          setCsvData(result.data);
+
           setHeaders(result.data[0]); // First row is headers
           setInputValues(Array(result.data[0].length).fill('')); // Initialize input values array
           setErrors(Array(result.data[0].length).fill('')); // Initialize error array
@@ -42,15 +51,6 @@ const CsvAppender = () => {
         },
       });
     }
-    const newData = [
-      { name: 'Jan', value1: 4000, value2: 2400, value3: 2400 },
-      { name: 'Feb', value1: 3000, value2: 1398, value3: 2210 },
-      { name: 'Mar', value1: 2000, value2: 9800, value3: 2290 },
-      { name: 'Apr', value1: 2780, value2: 3908, value3: 2000 },
-      { name: 'May', value1: 1890, value2: 4800, value3: 2181 },
-      { name: 'Jun', value1: 2390, value2: 3800, value3: 2500 },
-    ];
-    setELOValues(newData);
   }
 
   
@@ -99,6 +99,7 @@ const CsvAppender = () => {
       const finalArray = [...updatedData, postgameELO]; // Append the input values to CSV data
       setCsvData(finalArray);
       setInputValues(Array(headers.length).fill('')); // Clear input fields
+      updateGraphs(finalArray);
     }
   };
 
@@ -127,12 +128,16 @@ const CsvAppender = () => {
     saveAs(blob, 'wingspan_scores.csv'); // Trigger the download of the CSV file
   };
 
+
+
+
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h5" gutterBottom>
         Append to Wingspan Scores CSV
       </Typography>
-      
+      <h1>ELO</h1>
+      <LineChartComponent data={ELO} names={Headers}/>
       {/* File upload for loading the CSV */}
       <input
         type="file"
@@ -173,11 +178,11 @@ const CsvAppender = () => {
           </Box>
         </>
       )}
-      {ELO.length>0 && (
+      {ELO.length>0 && headers.length>0 && (
     <div>
       
       <h1>ELO</h1>
-      <LineChartComponent data={ELO} />
+      <LineChartComponent data={ELO} names={headers}/>
       
     </div>
     )}

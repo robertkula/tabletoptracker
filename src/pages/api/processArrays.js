@@ -31,8 +31,6 @@ export default function handler(req, res) {
     const postgameELO = calculateELO.calculateELO(pregameELO,realOutcomesOrdered);
   
 
-      console.log("TEST");
-
 
       
       // Return the result

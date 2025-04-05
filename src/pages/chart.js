@@ -1,5 +1,5 @@
 import React from 'react';
-import CSVChart from '../components/ChartComponent';
+import LineChartComponent from '../components/ChartComponent';
 
 
 const App = () => {

@@ -14,16 +14,12 @@ export function readScores(inputCSV)
 
 }
 
-export function readELO(inputCSV)
+export function readELO(inputArray)
 {
-if (inputCSV) {
-      Papa.parse(inputCSV, {
-        complete: (result) => {
-          return(result.data[0]); // First row is headers
+  var ELO = [inputArray[2],inputArray[4],inputArray[6]];
 
-        },
-      });
-    }
+
+  return ELO;
 }
 
 
