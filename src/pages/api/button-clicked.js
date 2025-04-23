@@ -12,7 +12,7 @@ export default function handler(req, res) {
     if (!Array.isArray(numbers)) {
       return res.status(400).json({ error: 'Input must be an array' });
     }
-    const scores = [...numbers];
+    const scores = [...numbers]; 
 const scoresOrdered = [...numbers];
 scoresOrdered.sort().reverse();
 const length = data.length;

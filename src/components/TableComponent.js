@@ -1,0 +1,77 @@
+import React from 'react';
+import { useTable, useSortBy } from 'react-table';
+
+const TableComponent = () => {
+  const data = React.useMemo(
+    () => [
+      { firstName: 'Alice', lastName: 'Johnson', age: 25 },
+      { firstName: 'Bob', lastName: 'Smith', age: 30 },
+      { firstName: 'Charlie', lastName: 'Brown', age: 28 },
+    ],
+    []
+  );
+
+  const columns = React.useMemo(
+    () => [
+    //   { Header: 'Name', accessor: 'name' },
+    //   { Header: 'Average', accessor: 'avg' },
+    //   { Header: 'Maximum', accessor: 'max' },
+    //   { Header: 'Minimum', accessor: 'min' },
+    //   { Header: 'Std Dev', accessor: 'stddev' },
+    { Header: 'First Name', accessor: 'firstName' },
+    { Header: 'Last Name', accessor: 'lastName' },
+
+
+    ],
+    []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable({ columns, data }, useSortBy);
+
+  return (
+    <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
+      <thead>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+                style={{ borderBottom: 'solid 3px red', background: 'aliceblue', cursor: 'pointer' ,background: '#1e1e1e', color: '#f5f5f5'}}
+              >
+                {column.render('Header')}
+                <span>
+                  {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+                </span>
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map(row => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map(cell => (
+                <td
+                  {...cell.getCellProps()}
+                  style={{ padding: '10px', border: 'solid 1px gray', background: '#1e1e1e', color: '#f5f5f5' }}
+                >
+                  {cell.render('Cell')}
+                </td>
+              ))}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
+
+export default TableComponent;

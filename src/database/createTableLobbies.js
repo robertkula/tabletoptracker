@@ -15,12 +15,12 @@ async function createTable() {
 
     // Create a new table 'users'
     const createTableQuery = `
-      CREATE TABLE IF NOT EXISTS scoreSheet (
-        entryID SERIAL PRIMARY KEY,
+      CREATE TABLE IF NOT EXISTS lobbySheet (
+        id SERIAL PRIMARY KEY,
         lobbyID VARCHAR(100) NOT NULL,
         date VARCHAR(100) NOT NULL,
-        gameID VARCHAR(100) NOT NULL,
-        scores JSONB NOT NULL,
+        players TEXT[],
+        games TEXT[],
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
       );

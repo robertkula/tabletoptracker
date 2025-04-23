@@ -3,22 +3,25 @@ import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 // This is the dynamic component that will accept the data as a prop
-const LineChartComponent = ({ data,names }) => {
-  // The keys of the data object will determine the number of columns/lines to display
+const LineChartComponent = ({ data, names }) => {
+  const allValues = data.flatMap(d => names.map(name => d[name]));
   
-  if(data.length > 0 && names.length>0)
+  const minY = Math.round(Math.min(...allValues));
+  const maxY = Math.round(Math.max(...allValues));
+  // The keys of the data object will determine the number of columns/lines to display
+  if(data.length > 0)
   {
-    console.log(names);
-
-  const keys = Object.keys(names); // Assuming each element in the array has the same structure
+    
+    
+  const keys = names; // Assuming each element in the array has the same structure
 
 
     return (
     <ResponsiveContainer width="100%" height={400}>
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
+        <XAxis dataKey="date" />
+        <YAxis domain={[ minY - 50, maxY + 50]} />
         <Tooltip />
         <Legend />
         
@@ -40,3 +43,6 @@ const LineChartComponent = ({ data,names }) => {
 };
 
 export default LineChartComponent;
+
+
+

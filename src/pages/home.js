@@ -6,6 +6,12 @@ import * as calculateELO from "../calculation/calculateELO.js"
 import * as processCSV from "../calculation/processCSV.js"
 import LineChartComponent from '../components/ChartComponent';
 
+
+var searched = false;
+
+
+
+
 const CsvAppender = () => {
 
   const [inputValues, setInputValues] = useState([]);
@@ -14,9 +20,12 @@ const CsvAppender = () => {
   const [errors, setErrors] = useState([]);
   const [columnSums, setColumnSums] = useState([]); // Store the column sums
 
+  const [searchTerm, setSearchTerm] = useState([]); // Store the column sums
+  const [searchFor, setSearchFor] = useState([]);
+  const [searched, setSearched] = useState([]);
   const [ELO, setELOValues] = useState([]);
   const [scores, setScores] = useState([]);
-  console.log("TESTTEST123");
+
 
 
 
@@ -36,27 +45,14 @@ const CsvAppender = () => {
   };
 
   // Handle file input change
-  const handleFileUpload = (event) => {
-    changeBackground("blue");
-    const file = event.target.files[0];
-    if (file) {
-      Papa.parse(file, {
-        complete: (result) => {
-          setCsvData(result.data);
 
-          setHeaders(result.data[0]); // First row is headers
-          setInputValues(Array(result.data[0].length).fill('')); // Initialize input values array
-          setErrors(Array(result.data[0].length).fill('')); // Initialize error array
-          calculateColumnSums(result.data); // Calculate the sums of each column
-        },
-      });
-    }
-  }
 
   
   function changeBackground(color) {
     document.body.style.background = color;
  }
+
+
   // Function to validate inputs before appending to CSV
   const validateInputs = () => {
     const newErrors = [];
@@ -87,23 +83,6 @@ const CsvAppender = () => {
     return isValid;
   };
 
-  // Function to append the new data to the CSV array
-  const appendToCsv = () => {
-    if (validateInputs()) {
-      const updatedData = [...csvData, inputValues]; // Append the input values to CSV data
-      //calculateColumnSums(updatedData); // Recalculate column sums after appending data
-      var scores = [...inputValues.map(str => parseInt(str, 10))];
-      const pregameELO = [...csvData[csvData.length-1].map(str => parseInt(str, 10))];
-      const postgameELO = calculateELO.calculate(scores,pregameELO);
-      setColumnSums(postgameELO);
-      const finalArray = [...updatedData, postgameELO]; // Append the input values to CSV data
-      setCsvData(finalArray);
-      console.log(inputValues);
-      setInputValues(Array(headers.length).fill('')); // Clear input fields
-      updateGraphs(finalArray);
-    }
-  };
-
 
 
 
@@ -128,25 +107,57 @@ const CsvAppender = () => {
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
     saveAs(blob, 'wingspan_scores.csv'); // Trigger the download of the CSV file
   };
+  const handleTextChange = (value) => {
+    setSearchTerm(value.target.value);
+  }
+
+  const handleButtonClick = () => {
+    setSearchFor(searchTerm);
+    console.log(searchTerm);
 
 
+
+
+    setSearched(true);
+  }
 
 
   return (
     <Box sx={{ padding: 3 }}>
       <Typography variant="h5" gutterBottom>
-        Append to Wingspan Scores CSV
+        Search for a Lobby
       </Typography>
+      {searched == false && (
+        <>
       <h1>Lobby Name</h1>
-      <LineChartComponent data={ELO} names={Headers}/>
       {/* File upload for loading the CSV */}
+
+
+
       <input
-        type="file"
-        accept=".csv"
-        onChange={handleFileUpload}
+        type="text"
+        placeholder="Enter some text"
+        onChange={handleTextChange}
         style={{ marginBottom: '20px' }}
-      />
-      
+        />
+        <button onClick={handleButtonClick} style={{ marginBottom: '20px' }}>
+        Search
+        </button>
+        </>
+        )}
+    {searched == true && (
+        <>
+      <h1>TEST</h1>
+      {/* File upload for loading the CSV */}
+
+
+
+        
+        </>
+        )}
+
+
+
       {/* Dynamically generate input fields based on CSV columns */}
       {headers.length > 0 && (
         <>

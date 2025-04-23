@@ -1,12 +1,21 @@
-Array.prototype.maxi = function() {
-  return Math.max.apply(null, this);
-};
+const data = [ 
+  { 
+    Joe: 859.120540426913,
+    Bobby: 1000,
+    Tyler: 1140.8794595730872,
+    date: '2-3-2024'
+  },
+  {
+    Joe: 849.9780762315426,
+    Bobby: 1000,
+    Tyler: 1150.0219237684576,
+    date: '2-3-2024'
+  }
+];
 
-Array.prototype.min = function() {
-  return Math.min.apply(null, this);
-};
-
-let p = [35,2,65,7,8,9,12,121,33,99];
-
-console.log(`Max value is: ${p.maxi()}` +
-  `\nMin value is: ${p.min()}`);
+if (Array.isArray(data)) {
+  const result = data.flatMap(entry => [entry.Joe, entry.Bobby, entry.Tyler]);
+  console.log(result);
+} else {
+  console.log("data is not an array:", typeof data);
+}
