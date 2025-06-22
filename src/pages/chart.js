@@ -40,12 +40,14 @@ const App = () => {
         const scoresStripped = scoresData.map(obj => ({ ...obj }));
         scoresStripped.forEach(obj => {
           delete obj.date;
+          delete obj.average;
+
         });
-        console.log("SCORES",scoresData);
+        // console.log("SCORES",scoresData);
 
 
         const elo = basicELO.test(scoresStripped,namesData);
-        console.log("ELO",elo);
+        // console.log("ELO",elo);
        
   
 
@@ -62,16 +64,16 @@ const App = () => {
             playerData[player].push({ x: index, y: score, date });
           }
         });
-        console.log("DTES",gameDates);
-        console.log("scores",playerData);
+        //console.log("DTES",gameDates);
+        //console.log("scores",playerData);
         
-        console.log("names",namesData);
+        //console.log("names",namesData);
 
         setScores(playerData);
         setNames(namesData);
         setDates(gameDates);
         setELO(elo);
-
+        //console.log(playerData);
 
 
       } catch (error) {

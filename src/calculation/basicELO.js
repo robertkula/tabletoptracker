@@ -166,7 +166,7 @@ function toArray(inputJSON,players){
     {      
         output[i] = players.map(name => inputJSON[i][name]);
     }
-    console.log(output);
+    // console.log(output);
     return output;
 }
 
@@ -180,14 +180,15 @@ function toJSON(inputArray,players){
 
 
 
-export function calculate(scores,players){
-    var ELO = Array(scores.length);
+export function calculate(scores,players,dates){
+    // console.log(dates)
+    var ELO = Array(scores.length+1);
     const playerScores = players.reduce((acc, player) => {
         acc[player] = 1000;
         return acc;
       }, {});
       ELO[0] = playerScores;
-      
+      ELO[0].date = dates[0];
 
     for (let i = 1;  i < ELO.length; i++)
     {      
@@ -197,23 +198,14 @@ export function calculate(scores,players){
         players.forEach(player => { if (!(player in ELO[i])) {
             ELO[i][player] = ELO[i-1][player];
           }})
+          ELO[i].date = dates[i-1];
     }
 
+    
     return ELO;
  }
 
- export function test(scores,players){
 
-
-    //console.log("SCORES",scores[0])
-    //console.log("PLAYERS",players)
-
-
-
-
-    return calculate(scores,players)
- }
-
-export default test;
+export default calculate;
 
   

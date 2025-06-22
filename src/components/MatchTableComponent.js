@@ -9,10 +9,13 @@ const TableComponent = (input) => {
   const columns = React.useMemo(
     () => [
       { Header: 'Name', accessor: 'name' },
-      { Header: 'Average', accessor: 'average' },
-      { Header: 'Maximum', accessor: 'max' },
-      { Header: 'Minimum', accessor: 'min' },
-      { Header: 'Std Dev', accessor: 'stddev' },
+      { Header: 'Score', accessor: 'score' },
+      { Header: 'Expected Outcome', accessor: 'exOut' },
+      { Header: 'Real Outcome', accessor: 'realOut' },
+      { Header: 'Pregame ELO', accessor: 'pre' },
+      { Header: 'Change', accessor: 'change' },
+      { Header: 'Postgame ELO', accessor: 'post' },
+
     // { Header: 'First Name', accessor: 'firstName' },
     // { Header: 'Last Name', accessor: 'lastName' },
     ],

@@ -4,10 +4,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 // This is the dynamic component that will accept the data as a prop
 const LineChartComponent = ({ data, names }) => {
+  console.log("NAMES",names);
+
   const allValues = data.flatMap(d => names.map(name => d[name]));
-  
-  const minY = Math.round(Math.min(...allValues));
-  const maxY = Math.round(Math.max(...allValues));
+  const minY = Math.trunc(Math.round(Math.min(...allValues)/25-1))*25
+  const maxY = Math.trunc(Math.round(Math.max(...allValues)/25+1))*25;
   // The keys of the data object will determine the number of columns/lines to display
   if(data.length > 0)
   {
@@ -21,7 +22,7 @@ const LineChartComponent = ({ data, names }) => {
       <LineChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="date" />
-        <YAxis domain={[ minY - 50, maxY + 50]} />
+        <YAxis domain={[ minY, maxY]} />
         <Tooltip />
         <Legend />
         

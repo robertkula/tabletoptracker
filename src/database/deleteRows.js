@@ -22,7 +22,7 @@ async function insertData() {
 
         const res = await client.query('DELETE FROM scoreSheet');
         console.log("deleted successfully");
-      }
+      }     
  catch (err) {
     console.log("Failed");   
   console.error('Error inserting data:', err.stack);
@@ -33,7 +33,3 @@ console.log("ending");
 }
 
 insertData();
-
-
-
-

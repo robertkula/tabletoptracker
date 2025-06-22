@@ -18,7 +18,7 @@ async function insertData() {
     
 
 
-    const values = ['daboys','12-12-2021',['Bobby','Joe','Tyler','Chris'],['Catan','Wingspan']];
+    const values = ['daboys','2-15-2025',['Bobby','Joe','Tyler','Chris','Heinrich','Gerry'],['7 Wonders','Wingspan']];
     await client.query(insertQuery, values);
     console.log('Inserted:', values);    
     console.log('Data inserted successfully!');
